@@ -72,7 +72,7 @@ function Linux.ApplyTransparency(enabled, value)
             
             if enabled then
                 if tabIndex == Linux.CurrentTab then
-                    targetTransparency = 0.4
+                    targetTransparency = Linux.TransparencyValue
                 else
                     targetTransparency = element:GetAttribute("OriginalTransparency") or 0.8
                 end
@@ -1226,7 +1226,7 @@ function Linux.Create(config)
         local TitleLabel = Linux.Instance("TextLabel", {
             Parent = TitleFrame,
             BackgroundTransparency = 1,
-            Size = UDim2.new(1, -20, 0, 30),
+            Size = UDim2.new(1, -20, 1, 0),
             Position = UDim2.new(0, 10, 0, 10),
             Font = Enum.Font.GothamBold,
             Text = config.Name,
@@ -1780,7 +1780,6 @@ function Linux.Create(config)
                 if thisTrack and thisKnob then
                     local tween = TweenInfo.new(0.25, Enum.EasingStyle.Quad, Enum.EasingDirection.Out)
                     if currentState then
-                        -- Special styling for BlackWhite theme
                         if Linux.CurrentTheme == "BlackWhite" then
                             TweenService:Create(thisTrack, tween, {BackgroundColor3 = Color3.fromRGB(255, 255, 255)}):Play()
                             TweenService:Create(thisKnob, tween, {Position = UDim2.new(0, 20, 0.5, -7), BackgroundColor3 = Color3.fromRGB(0, 0, 0)}):Play()
@@ -2832,7 +2831,7 @@ function Linux.Create(config)
                 else
                     spawn(function() Linux:SafeCallback(config.Callback, value) end)
                 end
-            }
+            end
             
             TextBox.FocusLost:Connect(function(enterPressed)
                 if Finished then
@@ -2920,7 +2919,7 @@ function Linux.Create(config)
                     else
                         return TextBox.Text
                     end
-                end
+                }
             }
         end
         
